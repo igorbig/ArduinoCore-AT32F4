@@ -1,0 +1,1 @@
+https://raw.githubusercontent.com/igorbig/AT32F437/main/0.0.6/package_myat32_index.json

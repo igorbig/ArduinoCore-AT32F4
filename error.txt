@@ -1,0 +1,221 @@
+
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\syscalls.c:7:10: fatal error: at32f403a_407.h: No such file or directory
+    7 | #include "at32f403a_407.h"
+      |          ^~~~~~~~~~~~~~~~~
+compilation terminated.
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\adc.c: In function 'ADCx_Init':
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\adc.c:85:9: warning: implicit declaration of function 'crm_adc_clock_div_set'; did you mean 'crm_usb_clock_div_set'? [-Wimplicit-function-declaration]
+   85 |         crm_adc_clock_div_set(CRM_ADC_DIV_8);
+      |         ^~~~~~~~~~~~~~~~~~~~~
+      |         crm_usb_clock_div_set
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\exti.c: In function 'EXTIx_Init':
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\exti.c:104:33: error: 'CRM_IOMUX_PERIPH_CLOCK' undeclared (first use in this function); did you mean 'CRM_TMR9_PERIPH_CLOCK'?
+  104 |         crm_periph_clock_enable(CRM_IOMUX_PERIPH_CLOCK, TRUE);
+      |                                 ^~~~~~~~~~~~~~~~~~~~~~
+      |                                 CRM_TMR9_PERIPH_CLOCK
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\exti.c:104:33: note: each undeclared identifier is reported only once for each function it appears in
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\exti.c:106:9: warning: implicit declaration of function 'gpio_exint_line_config'; did you mean 'scfg_exint_line_config'? [-Wimplicit-function-declaration]
+  106 |         gpio_exint_line_config(GPIO_GetPortNum(Pin), (gpio_pins_source_type)Pinx);
+      |         ^~~~~~~~~~~~~~~~~~~~~~
+      |         scfg_exint_line_config
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\adc.c:85:31: error: 'CRM_ADC_DIV_8' undeclared (first use in this function); did you mean 'CRM_AHB_DIV_8'?
+   85 |         crm_adc_clock_div_set(CRM_ADC_DIV_8);
+      |                               ^~~~~~~~~~~~~
+      |                               CRM_AHB_DIV_8
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\adc.c:85:31: note: each undeclared identifier is reported only once for each function it appears in
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\adc.c:86:9: warning: implicit declaration of function 'adc_combine_mode_select' [-Wimplicit-function-declaration]
+   86 |         adc_combine_mode_select(ADC_INDEPENDENT_MODE);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\rtc.c: In function 'RTC_Init':
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\rtc.c:38:33: error: 'CRM_BPR_PERIPH_CLOCK' undeclared (first use in this function); did you mean 'CRM_ACC_PERIPH_CLOCK'?
+   38 |         crm_periph_clock_enable(CRM_BPR_PERIPH_CLOCK, TRUE);
+      |                                 ^~~~~~~~~~~~~~~~~~~~
+      |                                 CRM_ACC_PERIPH_CLOCK
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\rtc.c:38:33: note: each undeclared identifier is reported only once for each function it appears in
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\rtc.c:42:9: warning: implicit declaration of function 'bpr_data_read'; did you mean 'sdio_data_read'? [-Wimplicit-function-declaration]
+   42 |     if (bpr_data_read(BPR_DATA1) != 0x5051)
+      |         ^~~~~~~~~~~~~
+      |         sdio_data_read
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\adc.c:94:59: error: 'ADC12_ORDINARY_TRIG_SOFTWARE' undeclared (first use in this function)
+   94 |                 adc_ordinary_conversion_trigger_set(ADCx, ADC12_ORDINARY_TRIG_SOFTWARE, TRUE);
+      |                                                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\rtc.c:42:23: error: 'BPR_DATA1' undeclared (first use in this function)
+   42 |     if (bpr_data_read(BPR_DATA1) != 0x5051)
+      |                       ^~~~~~~~~
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\rtc.c:45:9: warning: implicit declaration of function 'bpr_reset'; did you mean 'tmr_reset'? [-Wimplicit-function-declaration]
+   45 |         bpr_reset();
+      |         ^~~~~~~~~
+      |         tmr_reset
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\rtc.c:52:17: warning: implicit declaration of function 'crm_rtc_clock_select'; did you mean 'crm_ertc_clock_select'? [-Wimplicit-function-declaration]
+   52 |                 crm_rtc_clock_select(CRM_RTC_CLOCK_LICK);
+      |                 ^~~~~~~~~~~~~~~~~~~~
+      |                 crm_ertc_clock_select
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\i2c.c: In function 'I2Cx_Init':
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\i2c.c:57:24: error: 'I2C_FSMODE_DUTY_2_1' undeclared (first use in this function)
+   57 |         i2c_init(I2Cx, I2C_FSMODE_DUTY_2_1, baudRate);
+      |                        ^~~~~~~~~~~~~~~~~~~
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\i2c.c:57:24: note: each undeclared identifier is reported only once for each function it appears in
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\rtc.c:52:38: error: 'CRM_RTC_CLOCK_LICK' undeclared (first use in this function); did you mean 'CRM_ERTC_CLOCK_LICK'?
+   52 |                 crm_rtc_clock_select(CRM_RTC_CLOCK_LICK);
+      |                                      ^~~~~~~~~~~~~~~~~~
+      |                                      CRM_ERTC_CLOCK_LICK
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\rtc.c:55:17: warning: implicit declaration of function 'crm_rtc_clock_enable'; did you mean 'crm_ertc_clock_enable'? [-Wimplicit-function-declaration]
+   55 |                 crm_rtc_clock_enable(TRUE);
+      |                 ^~~~~~~~~~~~~~~~~~~~
+      |                 crm_ertc_clock_enable
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\adc.c:96:59: error: 'ADC3_ORDINARY_TRIG_SOFTWARE' undeclared (first use in this function); did you mean 'ADC_ORDINARY_TRIG_EDGE_NONE'?
+   96 |                 adc_ordinary_conversion_trigger_set(ADCx, ADC3_ORDINARY_TRIG_SOFTWARE, TRUE);
+      |                                                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                                           ADC_ORDINARY_TRIG_EDGE_NONE
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\i2c.c:61:9: warning: implicit declaration of function 'i2c_master_receive_ack_set' [-Wimplicit-function-declaration]
+   61 |         i2c_master_receive_ack_set(I2Cx, I2C_MASTER_ACK_CURRENT);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\rtc.c:58:17: warning: implicit declaration of function 'rtc_wait_update_finish'; did you mean 'ertc_wait_update'? [-Wimplicit-function-declaration]
+   58 |                 rtc_wait_update_finish();
+      |                 ^~~~~~~~~~~~~~~~~~~~~~
+      |                 ertc_wait_update
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\adc.c: In function 'ADCx_GetValue':
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\adc.c:113:81: error: 'ADC_SAMPLETIME_41_5' undeclared (first use in this function); did you mean 'ADC_SAMPLETIME_47_5'?
+  113 |         adc_ordinary_channel_set(ADCx, (adc_channel_select_type)ADC_Channel, 1, ADC_SAMPLETIME_41_5);
+      |                                                                                 ^~~~~~~~~~~~~~~~~~~
+      |                                                                                 ADC_SAMPLETIME_47_5
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\adc.c:116:31: error: 'ADC_CCE_FLAG' undeclared (first use in this function); did you mean 'ADC_PCCE_FLAG'?
+  116 |     while(!adc_flag_get(ADCx, ADC_CCE_FLAG));
+      |                               ^~~~~~~~~~~~
+      |                               ADC_PCCE_FLAG
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\rtc.c:61:17: warning: implicit declaration of function 'rtc_wait_config_finish' [-Wimplicit-function-declaration]
+   61 |                 rtc_wait_config_finish();
+      |                 ^~~~~~~~~~~~~~~~~~~~~~
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\rtc.c:64:17: warning: implicit declaration of function 'rtc_interrupt_enable'; did you mean 'ertc_interrupt_enable'? [-Wimplicit-function-declaration]
+   64 |                 rtc_interrupt_enable(RTC_TS_INT, TRUE);
+      |                 ^~~~~~~~~~~~~~~~~~~~
+      |                 ertc_interrupt_enable
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\i2c.c:61:42: error: 'I2C_MASTER_ACK_CURRENT' undeclared (first use in this function)
+   61 |         i2c_master_receive_ack_set(I2Cx, I2C_MASTER_ACK_CURRENT);
+      |                                          ^~~~~~~~~~~~~~~~~~~~~~
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\i2c.c: In function 'I2Cx_ClearADDRFlag':
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\i2c.c:70:18: error: 'i2c_type' has no member named 'sts1'; did you mean 'sts'?
+   70 |   tmpreg = I2Cx->sts1;
+      |                  ^~~~
+      |                  sts
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\i2c.c:72:18: error: 'i2c_type' has no member named 'sts2'; did you mean 'sts'?
+   72 |   tmpreg = I2Cx->sts2;
+      |                  ^~~~
+      |                  sts
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\i2c.c:68:17: warning: variable 'tmpreg' set but not used [-Wunused-but-set-variable]
+   68 |   __IO uint32_t tmpreg;
+      |                 ^~~~~~
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\rtc.c:64:38: error: 'RTC_TS_INT' undeclared (first use in this function); did you mean 'ERTC_TS_INT'?
+   64 |                 rtc_interrupt_enable(RTC_TS_INT, TRUE);
+      |                                      ^~~~~~~~~~
+      |                                      ERTC_TS_INT
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\rtc.c:70:17: warning: implicit declaration of function 'rtc_divider_set'; did you mean 'ertc_divider_set'? [-Wimplicit-function-declaration]
+   70 |                 rtc_divider_set(40000);
+      |                 ^~~~~~~~~~~~~~~
+      |                 ertc_divider_set
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\timer.c: In function 'Qsqrt':
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\timer.c:85:11: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   85 |     i  = *(long*)&y;
+      |           ^~~~~~~~~
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\rtc.c:81:9: warning: implicit declaration of function 'bpr_data_write'; did you mean 'sdio_data_write'? [-Wimplicit-function-declaration]
+   81 |         bpr_data_write(BPR_DATA1, 0x5051);
+      |         ^~~~~~~~~~~~~~
+      |         sdio_data_write
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\timer.c:87:11: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   87 |     y  = *(float*)&i;
+      |           ^~~~~~~~~~
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\rtc.c:91:9: warning: implicit declaration of function 'rtc_flag_clear'; did you mean 'ertc_flag_clear'? [-Wimplicit-function-declaration]
+   91 |         rtc_flag_clear(RTC_CFGF_FLAG);
+      |         ^~~~~~~~~~~~~~
+      |         ertc_flag_clear
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\i2c.c: In function 'I2Cx_Read':
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\i2c.c:85:31: error: 'I2C_STARTF_FLAG' undeclared (first use in this function); did you mean 'I2C_ALERTF_FLAG'?
+   85 |     while(!i2c_flag_get(I2Cx, I2C_STARTF_FLAG));
+      |                               ^~~~~~~~~~~~~~~
+      |                               I2C_ALERTF_FLAG
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\adc.c: In function 'ADC_DMA_Init':
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\adc.c:209:51: error: 'ADC12_ORDINARY_TRIG_SOFTWARE' undeclared (first use in this function)
+  209 |         adc_ordinary_conversion_trigger_set(ADC1, ADC12_ORDINARY_TRIG_SOFTWARE, TRUE);
+      |                                                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\rtc.c:91:24: error: 'RTC_CFGF_FLAG' undeclared (first use in this function); did you mean 'ERTC_TSF_FLAG'?
+   91 |         rtc_flag_clear(RTC_CFGF_FLAG);
+      |                        ^~~~~~~~~~~~~
+      |                        ERTC_TSF_FLAG
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\timer.c: In function 'Timer_SetInterruptBase':
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\timer.c:376:21: error: 'TMR6_GLOBAL_IRQn' undeclared (first use in this function); did you mean 'TMR7_GLOBAL_IRQn'?
+  376 |     TMRx_IRQ_DEF(6, TMR6_GLOBAL_IRQn);
+      |                     ^~~~~~~~~~~~~~~~
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\timer.c:362:21: note: in definition of macro 'TMRx_IRQ_DEF'
+  362 |         TMRx_IRQn = x_IRQn;\
+      |                     ^~~~~~
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\timer.c:376:21: note: each undeclared identifier is reported only once for each function it appears in
+  376 |     TMRx_IRQ_DEF(6, TMR6_GLOBAL_IRQn);
+      |                     ^~~~~~~~~~~~~~~~
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\timer.c:362:21: note: in definition of macro 'TMRx_IRQ_DEF'
+  362 |         TMRx_IRQn = x_IRQn;\
+      |                     ^~~~~~
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\i2c.c:87:5: warning: implicit declaration of function 'i2c_7bit_address_send'; did you mean 'i2c_own_address2_set'? [-Wimplicit-function-declaration]
+   87 |     i2c_7bit_address_send(I2Cx, (slaveAddr << 1), I2C_DIRECTION_TRANSMIT);
+      |     ^~~~~~~~~~~~~~~~~~~~~
+      |     i2c_own_address2_set
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\adc.c:211:31: error: 'CRM_ADC_DIV_8' undeclared (first use in this function); did you mean 'CRM_AHB_DIV_8'?
+  211 |         crm_adc_clock_div_set(CRM_ADC_DIV_8);
+      |                               ^~~~~~~~~~~~~
+      |                               CRM_AHB_DIV_8
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\adc.c:219:13: error: 'ADC_SAMPLETIME_41_5' undeclared (first use in this function); did you mean 'ADC_SAMPLETIME_47_5'?
+  219 |             ADC_SAMPLETIME_41_5
+      |             ^~~~~~~~~~~~~~~~~~~
+      |             ADC_SAMPLETIME_47_5
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\rtc.c: In function 'RTC_SetTime':
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\rtc.c:159:33: error: 'CRM_BPR_PERIPH_CLOCK' undeclared (first use in this function); did you mean 'CRM_ACC_PERIPH_CLOCK'?
+  159 |         crm_periph_clock_enable(CRM_BPR_PERIPH_CLOCK, TRUE);
+      |                                 ^~~~~~~~~~~~~~~~~~~~
+      |                                 CRM_ACC_PERIPH_CLOCK
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\rtc.c:164:5: warning: implicit declaration of function 'rtc_counter_set'; did you mean 'wwdt_counter_set'? [-Wimplicit-function-declaration]
+  164 |     rtc_counter_set(seccount);
+      |     ^~~~~~~~~~~~~~~
+      |     wwdt_counter_set
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\i2c.c:87:51: error: 'I2C_DIRECTION_TRANSMIT' undeclared (first use in this function); did you mean 'I2C_DIR_TRANSMIT'?
+   87 |     i2c_7bit_address_send(I2Cx, (slaveAddr << 1), I2C_DIRECTION_TRANSMIT);
+      |                                                   ^~~~~~~~~~~~~~~~~~~~~~
+      |                                                   I2C_DIR_TRANSMIT
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\adc.c:224:13: warning: implicit declaration of function 'adc_tempersensor_vintrv_enable' [-Wimplicit-function-declaration]
+  224 |             adc_tempersensor_vintrv_enable(true);
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\rtc.c: In function 'RTC_SetAlarm':
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\i2c.c:88:31: error: 'I2C_ADDR7F_FLAG' undeclared (first use in this function); did you mean 'I2C_ADDRF_FLAG'?
+   88 |     while(!i2c_flag_get(I2Cx, I2C_ADDR7F_FLAG));
+      |                               ^~~~~~~~~~~~~~~
+      |                               I2C_ADDRF_FLAG
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\rtc.c:209:33: error: 'CRM_BPR_PERIPH_CLOCK' undeclared (first use in this function); did you mean 'CRM_ACC_PERIPH_CLOCK'?
+  209 |         crm_periph_clock_enable(CRM_BPR_PERIPH_CLOCK, TRUE);
+      |                                 ^~~~~~~~~~~~~~~~~~~~
+      |                                 CRM_ACC_PERIPH_CLOCK
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\rtc.c:214:5: warning: implicit declaration of function 'rtc_alarm_set'; did you mean 'ertc_alarm_set'? [-Wimplicit-function-declaration]
+  214 |     rtc_alarm_set(seccount);
+      |     ^~~~~~~~~~~~~
+      |     ertc_alarm_set
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\rtc.c: In function 'RTC_GetCalendar':
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\rtc.c:234:17: warning: implicit declaration of function 'rtc_counter_get'; did you mean 'wwdt_counter_set'? [-Wimplicit-function-declaration]
+  234 |     timecount = rtc_counter_get();
+      |                 ^~~~~~~~~~~~~~~
+      |                 wwdt_counter_set
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\i2c.c:98:51: error: 'I2C_DIRECTION_RECEIVE' undeclared (first use in this function); did you mean 'I2C_DIR_RECEIVE'?
+   98 |     i2c_7bit_address_send(I2Cx, (slaveAddr << 1), I2C_DIRECTION_RECEIVE);
+      |                                                   ^~~~~~~~~~~~~~~~~~~~~
+      |                                                   I2C_DIR_RECEIVE
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\i2c.c: In function 'I2Cx_Write':
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\i2c.c:120:31: error: 'I2C_STARTF_FLAG' undeclared (first use in this function); did you mean 'I2C_ALERTF_FLAG'?
+  120 |     while(!i2c_flag_get(I2Cx, I2C_STARTF_FLAG));
+      |                               ^~~~~~~~~~~~~~~
+      |                               I2C_ALERTF_FLAG
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\i2c.c:122:51: error: 'I2C_DIRECTION_TRANSMIT' undeclared (first use in this function); did you mean 'I2C_DIR_TRANSMIT'?
+  122 |     i2c_7bit_address_send(I2Cx, (slaveAddr << 1), I2C_DIRECTION_TRANSMIT);
+      |                                                   ^~~~~~~~~~~~~~~~~~~~~~
+      |                                                   I2C_DIR_TRANSMIT
+C:\Users\i.koyda\AppData\Local\Arduino15\packages\igorbig\hardware\at32f437\0.0.6\cores\arduino\libcore\i2c.c:123:31: error: 'I2C_ADDR7F_FLAG' undeclared (first use in this function); did you mean 'I2C_ADDRF_FLAG'?
+  123 |     while(!i2c_flag_get(I2Cx, I2C_ADDR7F_FLAG));
+      |                               ^~~~~~~~~~~~~~~
+      |                               I2C_ADDRF_FLAG
+exit status 1
+Ошибка компиляции для платы AT32F437ZMT7 AT-START-F437 Boards.
