@@ -12,10 +12,10 @@
         {
           "name": "AT32F437ZMT7 Core Board",
           "architecture": "at32f437",
-          "version": "0.0.1",
+          "version": "0.0.6",
           "category": "Contributed",
           "url": "https://github.com/igorbig/ArduinoCore-AT32F4/archive/refs/heads/main.zip",
-          "archiveFileName": "ATF437-main.zip",
+          "archiveFileName": "ArduinoCore-AT32F4.zip",
           "help": {
               "online": ""
             },
