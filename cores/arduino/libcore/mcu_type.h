@@ -23,8 +23,8 @@
 #ifndef __MCU_TYPE_H
 #define __MCU_TYPE_H
 
-#include "at32f403a_407.h"
-#include "at32f403a_407_conf.h"
+#include "at32f435_437.h"
+#include "at32f435_437_conf.h"
 #include "config/mcu_config.h"
 
 #define __AT32__
