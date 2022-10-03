@@ -4,8 +4,8 @@
   * Implementation of newlib syscall.
   *
   */
-#include "at32f403a_407.h"
-#include "at32f403a_407_conf.h"
+#include "at32f435_437.h"
+#include "at32f435_437_conf.h"
 #if defined (  __GNUC__  ) /* GCC CS3 */
   #include <sys/stat.h>
 #endif

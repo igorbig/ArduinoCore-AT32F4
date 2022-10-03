@@ -25,7 +25,7 @@
 
 #define ADC_DMA_REGMAX 18
 
-#define IS_ADC_CHANNEL(channel) (channel <= ADC_CHANNEL_17)
+#define IS_ADC_CHANNEL(channel) (channel <= ADC_CHANNEL_18)
 
 /*引脚注册个数*/
 static uint8_t ADC_DMA_RegCnt = 0;
@@ -62,6 +62,7 @@ static int16_t ADC_DMA_SearchChannel(uint16_t ADC_Channel)
   */
 void ADCx_Init(adc_type* ADCx)
 {
+    adc_common_config_type adc_common_struct;
     adc_base_config_type adc_base_struct;
 
     if(ADCx == ADC1)
@@ -72,34 +73,47 @@ void ADCx_Init(adc_type* ADCx)
     {
         crm_periph_clock_enable(CRM_ADC2_PERIPH_CLOCK, TRUE);
     }
-#ifdef ADC3
     else if(ADCx == ADC3)
     {
         crm_periph_clock_enable(CRM_ADC3_PERIPH_CLOCK, TRUE);
     }
-#endif
     else
     {
         return;
     }
-	crm_adc_clock_div_set(CRM_ADC_DIV_8);
-	adc_combine_mode_select(ADC_INDEPENDENT_MODE);
-	adc_base_default_para_init(&adc_base_struct);
-	adc_base_struct.sequence_mode = FALSE;
-	adc_base_struct.repeat_mode = FALSE;
-	adc_base_struct.data_align = ADC_RIGHT_ALIGNMENT;
-	adc_base_struct.ordinary_channel_length = 1;
-	adc_base_config(ADCx, &adc_base_struct);
-	if (ADCx != ADC3)
-		adc_ordinary_conversion_trigger_set(ADCx, ADC12_ORDINARY_TRIG_SOFTWARE, TRUE);
-	else 
-		adc_ordinary_conversion_trigger_set(ADCx, ADC3_ORDINARY_TRIG_SOFTWARE, TRUE);
 
-	adc_enable(ADCx, TRUE);
-	adc_calibration_init(ADCx);
-	while(adc_calibration_init_status_get(ADCx));
-	adc_calibration_start(ADCx);
-	while(adc_calibration_status_get(ADCx));
+    adc_common_default_para_init(&adc_common_struct);
+    adc_common_struct.combine_mode = ADC_INDEPENDENT_MODE;
+    adc_common_struct.div = ADC_HCLK_DIV_4;
+    adc_common_struct.common_dma_mode = ADC_COMMON_DMAMODE_DISABLE;
+    adc_common_struct.common_dma_request_repeat_state = FALSE;
+    adc_common_struct.sampling_interval = ADC_SAMPLING_INTERVAL_5CYCLES;
+    adc_common_struct.tempervintrv_state = FALSE;
+    adc_common_struct.vbat_state = FALSE;
+    adc_common_config(&adc_common_struct);
+
+    adc_base_default_para_init(&adc_base_struct);
+    adc_base_struct.sequence_mode = FALSE;
+    adc_base_struct.repeat_mode = FALSE;
+    adc_base_struct.data_align = ADC_RIGHT_ALIGNMENT;
+    adc_base_struct.ordinary_channel_length = 1;
+    adc_base_config(ADCx, &adc_base_struct);
+    adc_resolution_set(ADCx, ADC_RESOLUTION_12B);
+
+    adc_ordinary_conversion_trigger_set(ADCx, ADC_ORDINARY_TRIG_TMR1CH1, ADC_ORDINARY_TRIG_EDGE_NONE);
+
+    adc_dma_mode_enable(ADCx, FALSE);
+    adc_dma_request_repeat_enable(ADCx, FALSE);
+    adc_interrupt_enable(ADCx, ADC_OCCO_INT, FALSE);
+
+    adc_enable(ADCx, TRUE);
+    while(adc_flag_get(ADCx, ADC_RDY_FLAG) == RESET);
+
+    /* adc calibration */
+    adc_calibration_init(ADCx);
+    while(adc_calibration_init_status_get(ADCx));
+    adc_calibration_start(ADCx);
+    while(adc_calibration_status_get(ADCx));
 }
 
 /**
@@ -110,10 +124,10 @@ void ADCx_Init(adc_type* ADCx)
   */
 uint16_t ADCx_GetValue(adc_type* ADCx, uint16_t ADC_Channel)
 {
-	adc_ordinary_channel_set(ADCx, (adc_channel_select_type)ADC_Channel, 1, ADC_SAMPLETIME_41_5);
+    adc_ordinary_channel_set(ADCx, (adc_channel_select_type)ADC_Channel, 1, ADC_SAMPLETIME_47_5);
 
     adc_ordinary_software_trigger_enable(ADCx, TRUE);
-    while(!adc_flag_get(ADCx, ADC_CCE_FLAG));
+    while(!adc_flag_get(ADCx, ADC_OCCE_FLAG));
 
     return adc_ordinary_conversion_data_get(ADCx);
 }
@@ -175,8 +189,9 @@ uint8_t ADC_DMA_GetRegisterCount(void)
   */
 void ADC_DMA_Init(void)
 {
-	dma_init_type dma_init_structure;
-	adc_base_config_type adc_base_struct;
+    dma_init_type dma_init_structure;
+    adc_common_config_type adc_common_struct;
+    adc_base_config_type adc_base_struct;
     uint8_t index;
 
     crm_periph_clock_enable(CRM_ADC1_PERIPH_CLOCK, TRUE);
@@ -198,36 +213,50 @@ void ADC_DMA_Init(void)
 
     dma_init(DMA1_CHANNEL1, &dma_init_structure);
 
+    dmamux_enable(DMA1, TRUE);
+    dmamux_init(DMA1MUX_CHANNEL1, DMAMUX_DMAREQ_ID_ADC1);
 
-	adc_combine_mode_select(ADC_INDEPENDENT_MODE);
-	adc_base_default_para_init(&adc_base_struct);
-	adc_base_struct.sequence_mode = FALSE;
-	adc_base_struct.repeat_mode = FALSE;
-	adc_base_struct.data_align = ADC_RIGHT_ALIGNMENT;
-	adc_base_struct.ordinary_channel_length = 1;
-	adc_base_config(ADC1, &adc_base_struct);
-	adc_ordinary_conversion_trigger_set(ADC1, ADC12_ORDINARY_TRIG_SOFTWARE, TRUE);
+    adc_reset();
 
-	crm_adc_clock_div_set(CRM_ADC_DIV_8);
+    adc_common_default_para_init(&adc_common_struct);
+    adc_common_struct.combine_mode = ADC_INDEPENDENT_MODE;
+    adc_common_struct.div = ADC_HCLK_DIV_4;
+    adc_common_struct.common_dma_mode = ADC_COMMON_DMAMODE_DISABLE;
+    adc_common_struct.common_dma_request_repeat_state = FALSE;
+    adc_common_struct.sampling_interval = ADC_SAMPLING_INTERVAL_5CYCLES;
+    adc_common_struct.tempervintrv_state = FALSE;
+    adc_common_struct.vbat_state = FALSE;
+    adc_common_config(&adc_common_struct);
+
+    adc_base_default_para_init(&adc_base_struct);
+
+    adc_base_struct.sequence_mode = TRUE;
+    adc_base_struct.repeat_mode = TRUE;
+    adc_base_struct.data_align = ADC_RIGHT_ALIGNMENT;
+    adc_base_struct.ordinary_channel_length = ADC_DMA_RegCnt;
+    adc_base_config(ADC1, &adc_base_struct);
+    adc_resolution_set(ADC1, ADC_RESOLUTION_12B);
 
     for(index = 0; index < ADC_DMA_RegCnt; index++)
     {
         adc_ordinary_channel_set(
             ADC1,
-            ADC_DMA_RegChannelList[index],
+            (adc_channel_select_type)ADC_DMA_RegChannelList[index],
             index + 1,
-            ADC_SAMPLETIME_41_5
+            ADC_SAMPLETIME_47_5
         );
-
-        if(ADC_DMA_RegChannelList[index] == ADC_CHANNEL_16)
-        {
-            adc_tempersensor_vintrv_enable(true);
-        }
     }
+
+    adc_ordinary_conversion_trigger_set(ADC1, ADC_ORDINARY_TRIG_TMR1CH1, ADC_ORDINARY_TRIG_EDGE_NONE);
 
     adc_dma_mode_enable(ADC1, TRUE);
 
+    adc_dma_request_repeat_enable(ADC1, TRUE);
+
+    adc_interrupt_enable(ADC1, ADC_OCCO_INT, FALSE);
+
     adc_enable(ADC1, TRUE);
+    while(adc_flag_get(ADC1, ADC_RDY_FLAG) == RESET);
 
     adc_calibration_init(ADC1);
     while(adc_calibration_init_status_get(ADC1));

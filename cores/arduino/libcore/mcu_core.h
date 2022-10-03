@@ -25,9 +25,6 @@
 
 #include "at32f435_437_clock.h"
 
-#define sei() __set_PRIMASK(0)
-#define cli() __set_PRIMASK(1)
-
 #include "adc.h"
 #include "delay.h"
 #include "exti.h"
@@ -35,6 +32,9 @@
 #include "pwm.h"
 #include "timer.h"
 #include "wdg.h"
+
+#define sei() __set_PRIMASK(0)
+#define cli() __set_PRIMASK(1)
 
 #ifdef __cplusplus
 extern "C" {

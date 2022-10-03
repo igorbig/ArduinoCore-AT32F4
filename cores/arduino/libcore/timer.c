@@ -21,11 +21,12 @@
  * SOFTWARE.
  */
 #include "timer.h"
+#include "gpio.h"
 
 typedef enum
 {
     TIMER1, TIMER2, TIMER3, TIMER4, TIMER5, TIMER6, TIMER7, TIMER8,
-    TIMER9, TIMER10, TIMER11, TIMER12, TIMER13, TIMER14, TIMER15,
+    TIMER9, TIMER10, TIMER11, TIMER12, TIMER13, TIMER14, TIMER20,
     TIMER_MAX
 } TIMER_Type;
 
@@ -34,7 +35,7 @@ static Timer_CallbackFunction_t Timer_CallbackFunction[TIMER_MAX] = { 0 };
 /**
   * @brief  启动或关闭指定定时器的时钟
   * @param  TIMx:定时器地址
-  * @param  NewState: ENABLE启动，DISABLE关闭
+  * @param  Enable: true启动，false关闭
   * @retval 无
   */
 void Timer_ClockCmd(tmr_type* TIMx, bool Enable)
@@ -63,7 +64,8 @@ void Timer_ClockCmd(tmr_type* TIMx, bool Enable)
         CLOCK_MAP_DEF(11),
         CLOCK_MAP_DEF(12),
         CLOCK_MAP_DEF(13),
-        CLOCK_MAP_DEF(14)
+        CLOCK_MAP_DEF(14),
+        CLOCK_MAP_DEF(20)
     };
 
     for(index = 0; index < sizeof(clock_map) / sizeof(crm_tmr_clock_map_t); index++)
@@ -77,14 +79,15 @@ void Timer_ClockCmd(tmr_type* TIMx, bool Enable)
 
 static float Qsqrt(float number)
 {
-    long i;
-    float x2, y;
+    long i=0;
+    float x2=0, y=0;
     const float threehalfs = 1.5f;
     x2 = number * 0.5f;
     y  = number;
-    i  = *(long*)&y;
+//-{}	i  = *(long*)&y;
+    i  = i &(long)y;
     i  = 0x5f3759df - (i >> 1);
-    y  = *(float*)&i;
+//    y  = *(float*)&i;
     y  = y * (threehalfs - (x2 * y * y));
     y  = y * (threehalfs - (x2 * y * y));
     return 1.0f / y;
@@ -317,7 +320,7 @@ uint32_t Timer_GetClockOut(tmr_type* TIMx)
   * @param  Time: 中断时间(微秒)
   * @retval 无
   */
-void Timer_SetInterruptTimeUpdate(TIM_TypeDef* TIMx, uint32_t Time)
+void Timer_SetInterruptTimeUpdate(tmr_type* TIMx, uint32_t Time)
 {
     uint16_t period, prescaler;
     uint32_t clock = Timer_GetClockMax(TIMx);
@@ -373,7 +376,7 @@ while(0)
     TMRx_IRQ_DEF(3, TMR3_GLOBAL_IRQn);
     TMRx_IRQ_DEF(4, TMR4_GLOBAL_IRQn);
     TMRx_IRQ_DEF(5, TMR5_GLOBAL_IRQn);
-    TMRx_IRQ_DEF(6, TMR6_GLOBAL_IRQn);
+    TMRx_IRQ_DEF(6, TMR6_DAC_GLOBAL_IRQn);
     TMRx_IRQ_DEF(7, TMR7_GLOBAL_IRQn);
     TMRx_IRQ_DEF(8, TMR8_OVF_TMR13_IRQn);
     TMRx_IRQ_DEF(9, TMR1_BRK_TMR9_IRQn);
@@ -382,6 +385,7 @@ while(0)
     TMRx_IRQ_DEF(12, TMR8_BRK_TMR12_IRQn);
     TMRx_IRQ_DEF(13, TMR8_OVF_TMR13_IRQn);
     TMRx_IRQ_DEF(14, TMR8_TRG_HALL_TMR14_IRQn);
+    TMRx_IRQ_DEF(20, TMR20_OVF_IRQn);
 
 match:
 
@@ -403,7 +407,6 @@ match:
 
     tmr_flag_clear(TIMx, TMR_OVF_FLAG);
     tmr_interrupt_enable(TIMx, TMR_OVF_INT, TRUE);
-    tmr_counter_enable(TIMx, TRUE);
 }
 
 /**
@@ -413,7 +416,7 @@ match:
   * @param  Compare:输出比较值
   * @retval 无
   */
-void Timer_SetCompare(TIM_TypeDef* TIMx, uint8_t TimerChannel, uint32_t Compare)
+void Timer_SetCompare(tmr_type* TIMx, uint8_t TimerChannel, uint32_t Compare)
 {
     switch(TimerChannel)
     {
@@ -429,6 +432,9 @@ void Timer_SetCompare(TIM_TypeDef* TIMx, uint8_t TimerChannel, uint32_t Compare)
     case 4:
         tmr_channel_value_set(TIMx, TMR_SELECT_CHANNEL_4, Compare);
         break;
+    case 5:
+        tmr_channel_value_set(TIMx, TMR_SELECT_CHANNEL_5, Compare);
+        break;
     default:
         break;
     }
@@ -440,7 +446,7 @@ void Timer_SetCompare(TIM_TypeDef* TIMx, uint8_t TimerChannel, uint32_t Compare)
   * @param  TimerChannel: 定时器通道
   * @retval 捕获值
   */
-uint16_t Timer_GetCompare(TIM_TypeDef* TIMx, uint8_t TimerChannel)
+uint16_t Timer_GetCompare(tmr_type* TIMx, uint8_t TimerChannel)
 {
     uint16_t retval = 0;
     switch(TimerChannel)
@@ -456,6 +462,9 @@ uint16_t Timer_GetCompare(TIM_TypeDef* TIMx, uint8_t TimerChannel)
         break;
     case 4:
         retval = tmr_channel_value_get(TIMx, TMR_SELECT_CHANNEL_4);
+        break;
+    case 5:
+        retval = tmr_channel_value_get(TIMx, TMR_SELECT_CHANNEL_5);
         break;
     default:
         break;
@@ -489,6 +498,7 @@ void Timer_SetCounter(tmr_type* TIMx, uint32_t Counter)
 {
     TIMx->cval = Counter;
 }
+
 /**
   * @brief  应用定时器更改
   * @param  TIMx: 定时器地址
@@ -500,37 +510,69 @@ void Timer_GenerateUpdate(tmr_type* TIMx)
 }
 
 /**
- * @brief stop timer
- * @param None
- * @retval None
- */
-void Timer_Pause(tmr_type* TIMx)
+  * @brief  获取引脚对应的定时器复用编号
+  * @param  Pin: 引脚编号
+  * @retval 定时器复用编号
+  */
+gpio_mux_sel_type Timer_GetGPIO_MUX(uint8_t Pin)
 {
-    // Disable all IT
-    tmr_interrupt_enable(TIMx, TMR_OVF_INT, FALSE);
-    tmr_interrupt_enable(TIMx, TMR_C1_INT, FALSE);
-    tmr_interrupt_enable(TIMx, TMR_C2_INT, FALSE);
-    tmr_interrupt_enable(TIMx, TMR_C3_INT, FALSE);
-    tmr_interrupt_enable(TIMx, TMR_C4_INT, FALSE);
+    gpio_mux_sel_type GPIO_MUX_x = GPIO_MUX_0;
+    tmr_type* TIMx = PIN_MAP[Pin].TIMx;
+    uint8_t TimerChannel = PIN_MAP[Pin].TimerChannel;
 
-    // Stop timer
-    tmr_counter_enable(TIMx, FALSE);
-}
+#define TIMER_GPIO_MUX_DEF(mux, timx, channel) \
+    else if(TIMx == timx && TimerChannel == channel) \
+        GPIO_MUX_x = GPIO_MUX_##mux
 
-/**
- * @brief resume timer
- * @param None
- * @retval None
- */
-void Timer_Resume(tmr_type* TIMx)
-{
-    tmr_flag_clear(TIMx, TMR_OVF_FLAG);
-    tmr_interrupt_enable(TIMx, TMR_OVF_INT, TRUE);
-    tmr_counter_enable(TIMx, TRUE);
-    tmr_interrupt_enable(TIMx, TMR_C1_INT, TRUE);
-    tmr_interrupt_enable(TIMx, TMR_C2_INT, TRUE);
-    tmr_interrupt_enable(TIMx, TMR_C3_INT, TRUE);
-    tmr_interrupt_enable(TIMx, TMR_C4_INT, TRUE);
+    if(0) {}
+
+    /* GPIO_MUX_1 */
+    TIMER_GPIO_MUX_DEF(1, TIM2, 1);
+    TIMER_GPIO_MUX_DEF(1, TIM2, 2);
+    TIMER_GPIO_MUX_DEF(1, TIM2, 3);
+    TIMER_GPIO_MUX_DEF(1, TIM2, 4);
+    TIMER_GPIO_MUX_DEF(1, TIM1, 1);
+    TIMER_GPIO_MUX_DEF(1, TIM1, 2);
+    TIMER_GPIO_MUX_DEF(1, TIM1, 3);
+    TIMER_GPIO_MUX_DEF(1, TIM1, 4);
+
+    /* GPIO_MUX_2 */
+    TIMER_GPIO_MUX_DEF(2, TIM3, 1);
+    TIMER_GPIO_MUX_DEF(2, TIM3, 2);
+    TIMER_GPIO_MUX_DEF(2, TIM3, 3);
+    TIMER_GPIO_MUX_DEF(2, TIM3, 4);
+    TIMER_GPIO_MUX_DEF(2, TIM4, 1);
+    TIMER_GPIO_MUX_DEF(2, TIM4, 2);
+    TIMER_GPIO_MUX_DEF(2, TIM4, 3);
+    TIMER_GPIO_MUX_DEF(2, TIM4, 4);
+    TIMER_GPIO_MUX_DEF(2, TIM5, 1);
+    TIMER_GPIO_MUX_DEF(2, TIM5, 2);
+    TIMER_GPIO_MUX_DEF(2, TIM5, 3);
+    TIMER_GPIO_MUX_DEF(2, TIM5, 4);
+    TIMER_GPIO_MUX_DEF(2, TIM8, 1);
+    TIMER_GPIO_MUX_DEF(2, TIM8, 2);
+    TIMER_GPIO_MUX_DEF(2, TIM8, 3);
+    TIMER_GPIO_MUX_DEF(2, TIM8, 4);
+
+    /* GPIO_MUX_3 */
+    TIMER_GPIO_MUX_DEF(3, TIM9, 1);
+    TIMER_GPIO_MUX_DEF(3, TIM9, 2);
+    TIMER_GPIO_MUX_DEF(3, TIM10, 1);
+    TIMER_GPIO_MUX_DEF(3, TIM11, 1);
+
+    /* GPIO_MUX_6 */
+    TIMER_GPIO_MUX_DEF(6, TIM20, 1);
+    TIMER_GPIO_MUX_DEF(6, TIM20, 2);
+    TIMER_GPIO_MUX_DEF(6, TIM20, 3);
+    TIMER_GPIO_MUX_DEF(6, TIM20, 4);
+
+    /* GPIO_MUX_9 */
+    TIMER_GPIO_MUX_DEF(9, TIM12, 1);
+    TIMER_GPIO_MUX_DEF(9, TIM12, 2);
+    TIMER_GPIO_MUX_DEF(9, TIM13, 1);
+    TIMER_GPIO_MUX_DEF(9, TIM14, 1);
+
+    return GPIO_MUX_x;
 }
 
 #define TMRx_IRQHANDLER(n) \
@@ -552,6 +594,7 @@ do{\
   */
 void TMR1_OVF_TMR10_IRQHandler(void)
 {
+
     TMRx_IRQHANDLER(1);
     TMRx_IRQHANDLER(10);
 }
@@ -601,11 +644,9 @@ void TMR5_GLOBAL_IRQHandler(void)
   * @param  无
   * @retval 无
   */
-void TMR6_GLOBAL_IRQHandler(void)
+void TMR6_DAC_GLOBAL_IRQHandler(void)
 {
-#ifdef TMR6
     TMRx_IRQHANDLER(6);
-#endif
 }
 
 /**
@@ -615,9 +656,7 @@ void TMR6_GLOBAL_IRQHandler(void)
   */
 void TMR7_GLOBAL_IRQHandler(void)
 {
-#ifdef TMR7
     TMRx_IRQHANDLER(7);
-#endif
 }
 
 /**
@@ -628,9 +667,7 @@ void TMR7_GLOBAL_IRQHandler(void)
 void TMR8_OVF_TMR13_IRQHandler(void)
 {
     TMRx_IRQHANDLER(8);
-#ifdef TMR13
     TMRx_IRQHANDLER(13);
-#endif
 }
 
 /**
@@ -638,9 +675,7 @@ void TMR8_OVF_TMR13_IRQHandler(void)
   * @param  无
   * @retval 无
   */
-void TMR15_OVF_IRQHandler(void)
+void TMR20_OVF_IRQHandler(void)
 {
-#ifdef TMR15
-    TMRx_IRQHANDLER(15);
-#endif
+    TMRx_IRQHANDLER(20);
 }

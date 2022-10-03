@@ -27,7 +27,6 @@ void Core_Init(void)
 {
     system_clock_config();
     nvic_priority_group_config(NVIC_PRIORITY_GROUP_2);
-//    GPIO_JTAG_Disable();
     Delay_Init();
     ADCx_Init(ADC1);
 }

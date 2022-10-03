@@ -23,14 +23,19 @@
 #ifndef __MCU_TYPE_H
 #define __MCU_TYPE_H
 
+//-{}#include "at32f4xx.h"
 #include "at32f435_437.h"
+//#include "at32f4xx_conf.h"
 #include "at32f435_437_conf.h"
+
 #include "config/mcu_config.h"
 
 #define __AT32__
 #define __AT32F4__
-// #define F_CPU                       system_core_clock
-// #define F_CPU  80000000L
+#define __STM32__
+#define __STM32F4__
+//-{}#define F_CPU                       system_core_clock
+//#define F_CPU                       288000000U
 #define CYCLES_PER_MICROSECOND      (F_CPU / 1000000U)
 
 typedef gpio_type                   GPIO_TypeDef;
@@ -69,7 +74,7 @@ typedef tmr_type                    TIM_TypeDef;
 #define TIM12                       TMR12
 #define TIM13                       TMR13
 #define TIM14                       TMR14
-#define TIM15                       TMR15
+#define TIM20                       TMR20
 
 
 #endif
