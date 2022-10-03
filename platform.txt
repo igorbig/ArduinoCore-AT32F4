@@ -1,6 +1,6 @@
 ##==============================================##
 name=igorbig AT32F437 Boards
-version=0.0.6
+version=0.0.1
 ##==============================================##
 
 ####AT32 compile variables
@@ -33,7 +33,7 @@ build.common_flags=-mthumb
 ##===============================================##
 ## In there,set the include path,for FrameLib use
 
-compiler.FrameLib.c.flags="-I{build.system.path}/Drivers/CMSIS/Include" "-I{build.system.path}/AT32F403A" "-I{build.system.path}/Drivers/Firmware/inc" "-I{build.system.path}/libcore" "-I{build.system.path}/libcore/config"
+compiler.FrameLib.c.flags="-I{build.system.path}/Drivers/CMSIS/Include" "-I{build.system.path}/AT32F437" "-I{build.system.path}/Drivers/Firmware/inc" "-I{build.system.path}/libcore" "-I{build.system.path}/libcore/config"
 
 ##===============================================##
 
@@ -61,8 +61,8 @@ recipe.size.regex.data=^(?:\.data|\.bss|\.noinit)\s+([0-9]+).*
 # Uploader tools
 # -------------------
 
-tools.Artery_ISP_Console.cmd=DFU_download.sh
-tools.Artery_ISP_Console.cmd.windows=WeAct Studio Download Tool.bat
+tools.Artery_ISP_Console.cmd=DFU_download.bat
+tools.Artery_ISP_Console.cmd.windows=Igorbig Download Tool.bat
 tools.Artery_ISP_Console.path={runtime.tools.Artery_ISP_Console.path}
 
 tools.Artery_ISP_Console.upload.params.verbose=-d

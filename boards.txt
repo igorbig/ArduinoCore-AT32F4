@@ -85,4 +85,4 @@ igorbigAT32F4.menu.pll_output_range.pll_output_range_le72mhz.build.f_pll_output_
 igorbigAT32F4.menu.upload_method.USBDFUMethod=Artery DFU ISP
 igorbigAT32F4.menu.upload_method.USBDFUMethod.upload.protocol=Artery_ISP
 igorbigAT32F4.menu.upload_method.USBDFUMethod.upload.tool=Artery_ISP_Console
-igorbigAT32F4.menu.upload_method.USBDFUMethod.upload.maximum_size=1048576
+igorbigAT32F4.menu.upload_method.USBDFUMethod.upload.maximum_size=4194304
