@@ -66,17 +66,17 @@
           "systems": [
             {
               "host": "i686-mingw32",
-              "url": "https://github.com/igorbig/ArduinoCore-AT32F4/files/9646557/Artery_ISP_Console_Win_V3.0.03.zip",
+              "url": "https://github.com/igorbig/ArduinoCore-AT32F4//releases/download/0.0.1/Artery_ISP_Console_Win_V3.0.03.zip",
               "archiveFileName": "Artery_ISP_Console_Win_V3.0.03.zip",
               "size": "3891877",
-              "checksum": "SHA-256: d2144344586bc07b106fc555234183052718cf2ae958baacb611a0a9ab3be005"
+              "checksum": "SHA-256:d2144344586bc07b106fc555234183052718cf2ae958baacb611a0a9ab3be005"
             },
             {
               "host": "x86_64-pc-linux-gnu",
-              "url": "https://github.com/igorbig/ArduinoCore-AT32F4/files/9646556/Artery_ISP_Console_Linux_V3.0.03.zip",
+              "url": "https://github.com/igorbig/ArduinoCore-AT32F4/releases/download/0.0.1/Artery_ISP_Console_Linux_V3.0.01.tar.bz2",
               "archiveFileName": "Artery_ISP_Console_Linux_V3.0.03.zip",
-              "size": "14810873",
-              "checksum": "SHA-256: fc82311b2fa73929c00001d9bcbd5861fa4b755e5421b43b9442e1ca5d27a4cd"
+              "size": "4801988",
+              "checksum": "SHA-256:f84a0a2156a6b4bb8e8ccbc6d9b297517a526dfc857c4789176a906c91c26f77"
             }
           ]
         }
