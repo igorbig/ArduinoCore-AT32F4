@@ -7,7 +7,7 @@ menu.pll_output_range=pll_output_range
 igorbigAT32F4.name=AT32F437ZMT7 AT-START-F437 Boards
 igorbigAT32F4.build.mcu=cortex-m4
 igorbigAT32F4.build.f_cpu=80000000L
-igorbigAT32F4.build.board=AT32f437xxT7
+igorbigAT32F4.build.board=AT32f437ZMT7
 igorbigAT32F4.build.vect_flags=-DUSER_ADDR_ROM=0x08000000
 igorbigAT32F4.build.core=arduino
 igorbigAT32F4.build.extra_flags=-DAT32F437ZMT7 -USE_STDPERIPH_DRIVER
